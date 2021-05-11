@@ -1,0 +1,35 @@
+Anotações: Artigo - 1412683_2016_completo
+
+-> Introdução:
+
+	O estudo de séries temporais tem-se convertido em uma linha de pesquisa mutio difundida. A análise e modelagem têm sido estudadas para entender as relações entre as observações no tempo, sendo de aplicação prática em áreas como a biologia, a engenharia, a energia, as vendas, as comunicações etc.
+Atualmente, existem duas abordagens na análise das séries temporais. A abordagem mais utlizada é a análise clássica, que se baseia na suposição de que os valores que toma a variável é consequência das componentes de tendência, sazonalidade e ruído, cuja ação conjunta resulta nos valores medidos. A outra abordagem, menos aprofundada na literatura, se baseia na análise das componentes determinísticas e estocásticas.
+A análise das componentes estocásticas e determinísticas imersas em uma série de tempo permite isolar o conjunto de dados que são influenciados fortemente por processos aleatórios e que podem varias significativamente os resultados da modelagem
+
+-> Definições Iniciais:
+
+- Série Estocástica: é um conjunto de observações e relações que seguem funções de probabilidade e podem mudar com o tempo. Geralmente, envolve uma função matemática mais o termo aleatório;
+
+- Série Determinística: É aquela que depende estritamente de observações passadas produzidas por alguma função matemática.
+
+- Estacionariedade: Uma série é estacionária quando suas observações estão em um estado particular de equilíbrio estatístico, no qual suas propriedades não são afetadas pela mudança na origem de tempo. Isso significa que, a distribuição de probabilidade conjunta segue sendo a mesma embora o conjunto de observações seja deslocado para frente ou para trás.
+
+- Lineariedade: Uma série é dita linear quando suas observações estão compostas por combinações lineares de ocorrências passadas e ruído.
+
+-> Empirical Mode Decomposition (EMD):
+
+	EMD é um método para a análise de sinais com diferentes frequências e modulações. É usuado para representar os sinais não estacionários e/ou não lineares, que permitem a análise da composição de frequência das funções que tem uma única dimensão. O objetivo de EMD é decompor o sinal em uma soma de funções de modo intrínsecas chamadas de IMFs.
+	Exigências para decomposição:
+	- O sinal tem pelo menos dois extremos, um máximo e um mínimo;
+	- A escala de tempo é definida pelo lapso de tempo entre esses extremos;
+	- Se os dados foram totalmente desprovidos de extremos, mas contem apenas os pontos de inflexão, então se pode diferencias uma ou mais vezes para revelar os extremos. Os resultados finais podem ser obtidos por integração dos componentes.
+	Com o objetivo de definir as IMFs, o método usa os envelopes definidos pelos máximos e mínimos locais separadamente. No início, são identificados os extremos, posteriormente, todos os máximos locais são conectados pela linha spline cubic, obtendo o envelope superior. De igual forma são conectados os mínimos locais, obtendo o envelope inferior. Os envelopes inferior e superior devem cobrir todos os dados. Logo, é calculada uma média aritmética entre os envelopes definidos pelos máximos e mínimos. Essa média é designada como m1, e a diferencia entre o sinal original e m1, é a primeira componente, h1, ou seja:
+						h1 = X(t) - m1
+
+	Esse processo tem dois objetivos: eliminar as ondas de equitação e fazer os perfis de onda mais simétricos. Para esse fim, o processo descrito tem que ser repetidos várias vezes. No segundo processo de filtragem, h1 é tratado como o sinal original da forma:
+						h1 - m11 = h11
+
+	Esse processo de filtragem é repetidos k vezes até que h1k cumpra as duas condições necessárias para ser considerada uma IMF, as quais são:
+	- O número de extremos e o número de cruzes por zero devem ser iguais ou diferir no máximo em um;
+	- Em qualquer ponto, o valor médio entre o envelope defenido pelos máximos locais e o envelope definido pelos mínimos locais é zero, ou seja, os máximos locais e o envelope definido pelos nínimos locais é zero, ou seja, os máximos locais devem ser positivos e os mínimos locais devem ser negativos.
+						h1(k-1) - m1k = h1k
